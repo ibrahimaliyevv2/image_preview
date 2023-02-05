@@ -28,6 +28,18 @@ box.addEventListener('dragover', function(e){
 box.addEventListener('drop', function(e){
     e.preventDefault();
     console.log('dropped');
+
+    [...e.dataTransfer.files].forEach(x =>{
+        let reader = new FileReader();
+
+        reader.onload = function(e){
+            let img = document.createElement('img');
+            img.setAttribute('src', reader.result);
+            box.appendChild(img);
+        }
+
+        reader.readAsDataURL(x);
+    })
 })
 
 let inp = document.querySelector('#inp');
